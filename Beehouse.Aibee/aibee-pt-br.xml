@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <context name="Initial" require-reset="1">
+    <message>Olá! Eu sou a Aibee. Em que posso ajudar?</message>
+  </context>
+  <context name="[Greeting]" require-reset="1">
+    <message>Olá! Em que posso ser útil?</message>
+  </context>
+  <context name="[About]" require-reset="1">
+    <message>Não sei o que dizer sobre isso.</message>
+  </context>
+  <context name="[How]" require-reset="1">
+    <message entities="[Action::Create][Model::Customer]">Você cadastra clientes pelo menu **Clientes**.</message>
+    <message entities="[Action::Create][Model::Product]">Você cadastra produtos pelo menu **Produtos**.</message>
+    <message entities="[Action::Create][Model::Budget]">Você cria orçamentos pelo menu **Orçamentos**.</message>
+    <message entities="[Action::Create][Model::Order]">Pedidos vêm de orçamentos, ou seja, é necessário criar um orçamento e aprová-lo. Quando você aprova um orçamento, ele vira um **pedido**.</message>
+    <message entities="[Action::Create]">Não entendi bem o que você deseja criar. Digite frases como "como cadastrar um novo produto" ou "como criar orçamentos".</message>
+  </context>
+  <context name="About_Me">
+    <message>Eu sou a Aibee. Sou sua auxiliar comercial e estou aqui para ajudá-lo a realizar algumas tarefas. O que você tem em mente?</message>
+  </context>
+  <context name="About_Parent">
+    <message>Eu sei que meu pai é o Raul Medeiros, porém tenho dúvidas de quem seja minha mãe... a Microsoft talvez? </message>
+  </context>
+  <context name="Contexto 1">
+    <message>Este é o contexto 1</message>
+  </context>
+  <context name="Contexto 2">
+    <message>Este é o contexto 2</message>
+  </context>
+  <context name="Contexto 3" related="Contexto 1, Contexto 2">
+    <message if="Contexto 2"> Este é o contexto 3 com relação ao contexto 2 </message>
+    <message if="Contexto 1">Este é o contexto 3 com relação ao contexto 1</message>
+  </context>
+  <context name="Contexto 4" related="Contexto 2,Context 3">
+    <message if="Any"> Este é o contexto 4 caso nenhuma outra mensagem seja compatível. </message>
+    <message if="Contexto 2">Este é o contexto 4 com relação ao contexto 2 caso</message>
+    <message if="Context 2" not-history="Context 1"> Este é o contexto 4 com relação ao contexto 2, e é anulado se o contexto 1 for chamado 1 vez</message>
+  </context>
+</root>
+
+<!-- 
+  - Passos para o reconhecimento de diálogos:
+  
+  - O usuário digita uma frase.
+  - A Aibee identifica a intenção (contexto) da frase
+  - O usuário está inserido em algum contexto?
+    Não:
+      - Responde com a mensagem do contexto atual
+    Sim:
+      - Identifica contextos relacionados
+      - Responde com a messagem compatível com os contextos relacionados
+      
+  Exemplo:
+  <context name="Contexto 1" related-context="Any">
+    <message>Este é o contexto 1</message>
+  </context>
+  <context name="Contexto 2" related-context="Any">
+    <message>Este é o contexto 2</message>
+  </context>
+  <context name="Contexto 3" related-context="Contexto 1, Contexto 2">
+    <message if="Contexto 2"> Este é o contexto 3 com relação ao contexto 2 </message>
+    <message if="Contexto 1">Este é o contexto 3 com relação ao contexto 1</message>
+  </context>
+  <context name="Contexto 4" related-context="Contexto 2,Context 3">
+    <message if="Any"> Este é o contexto 4 caso nenhuma outra mensagem seja compatível. </message>
+    <message if="Contexto 2">Este é o contexto 4 com relação ao contexto 2 caso</message>
+    <message if="Context 2" not-all="Context 1"> Este é o contexto 4 com relação ao contexto 2, e é anulado se o contexto 1 for chamado 1 vez
+  </context>
+-->
